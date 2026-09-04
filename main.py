@@ -16,7 +16,7 @@ print(f"Habits you're tracking: ")
 
 print(f"Today's To-Do: ")
 
-print("""
+choice = input("""
 ========================================
 
 1. Log habits
