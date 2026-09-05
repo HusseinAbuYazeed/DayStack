@@ -40,7 +40,24 @@ def add_habit(name, data_type, unit=None):
     save_habit(name, data_type, unit)
 
 def get_habits():
-    pass
+    conn = psycopg2.connect(
+        host="localhost",
+        dbname="postgres",
+        user="postgres",
+        password=DB_PASSWORD,
+        port=5432
+    )
+
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM habits;")
+
+    habits = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return habits
 
 def log_habit():
     pass

@@ -1,6 +1,5 @@
 import datetime
-
-from app.habits import add_habit
+from app.habits import add_habit, get_habits
 
 
 while True:
@@ -24,7 +23,8 @@ while True:
 2. Check today's to-do list
 3. Make a to-do list for a day
 4. Add a habit to track
-5. Exit
+5. Show All Habits
+6. Exit
 
 Choose an option:
 
@@ -92,7 +92,14 @@ Choose a unit:
         except ValueError as e:
             print(f"Error: {e}")
 
+
     elif choice == "5":
+        habits = get_habits()
+       
+        for habit in habits:
+            print(habit)
+    
+    elif choice == "6":
         print("Goodbye!")
         break
 
