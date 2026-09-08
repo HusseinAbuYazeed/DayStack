@@ -96,8 +96,11 @@ Choose a unit:
     elif choice == "5":
         habits = get_habits()
        
+        formatter = ["id: ", "name: ", "data_type: ", "unit: ", "created_at: "]
+
         for habit in habits:
-            print(habit)
+            for item, info in zip(formatter, habit):
+                print(item, info)
     
     elif choice == "6":
         print("Goodbye!")
