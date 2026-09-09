@@ -1,5 +1,6 @@
 import datetime
-from app.habits import add_habit, get_habits
+
+from app.habits import add_habit, show_habits
 
 
 while True:
@@ -93,14 +94,21 @@ Choose a unit:
             print(f"Error: {e}")
 
     elif choice == "5":
-        habits = get_habits()
-       
-        formatter = ["id: ", "name: ", "data_type: ", "unit: ", "created_at: "]
+
+        habits = show_habits()
+
+        formatter = [
+            "id: ",
+            "name: ",
+            "data_type: ",
+            "unit: ",
+            "created_at: "
+        ]
 
         for habit in habits:
             for item, info in zip(formatter, habit):
                 print(item, info)
-    
+
     elif choice == "6":
         print("Goodbye!")
         break
