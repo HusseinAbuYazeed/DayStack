@@ -1,6 +1,7 @@
 import os
-import psycopg2
 from dotenv import load_dotenv
+from database.connection import get_connection
+
 load_dotenv()
 DB_PASSWORD = os.getenv("POSTGRESQL_PASS")
 
@@ -20,8 +21,7 @@ def validate_habit(name, data_type, unit=None):
         raise ValueError("Numeric habits require a unit.")
 
 def save_habit(name, data_type, unit=None):
-    conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres"
-                      , password = DB_PASSWORD, port = 5432)
+    conn = get_connection()
 
     cur = conn.cursor()
 
@@ -40,13 +40,7 @@ def add_habit(name, data_type, unit=None):
     save_habit(name, data_type, unit)
 
 def get_habits():
-    conn = psycopg2.connect(
-        host="localhost",
-        dbname="postgres",
-        user="postgres",
-        password=DB_PASSWORD,
-        port=5432
-    )
+    conn = get_connection()
 
     cur = conn.cursor()
 

@@ -92,7 +92,6 @@ Choose a unit:
         except ValueError as e:
             print(f"Error: {e}")
 
-
     elif choice == "5":
         habits = get_habits()
        
