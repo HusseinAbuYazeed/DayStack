@@ -1,6 +1,11 @@
 import datetime
 
-from app.habits import add_habit, show_habits
+from app.habits import (
+    add_habit,
+    show_habits,
+    get_habit_info,
+    log_habit
+)
 
 
 while True:
@@ -32,7 +37,72 @@ Choose an option:
 > """)
 
     if choice == "1":
-        ...
+
+        habits = show_habits()
+
+        if not habits:
+            print("You don't have any habits to log.")
+            continue
+
+        print("\nYour habits:")
+
+        for habit in habits:
+            print(f"{habit[0]}. {habit[1]}")
+
+        try:
+            habit_id = int(input("\nChoose a habit:\n\n> "))
+
+        except ValueError:
+            print("Please enter a valid habit ID.")
+            continue
+
+        habit = get_habit_info(habit_id)
+
+        if habit is None:
+            print("Habit not found.")
+            continue
+
+        data_type = habit[2]
+        unit = habit[3]
+
+        if data_type == "bool":
+
+            value_choice = input("""
+1- Yes
+2- No
+
+> """)
+
+            if value_choice == "1":
+                value = True
+
+            elif value_choice == "2":
+                value = False
+
+            else:
+                print("You can only pick 1 or 2.")
+                continue
+
+        elif data_type == "numeric":
+
+            value = input(f"""
+How many {unit}?
+
+> """)
+
+            try:
+                value = float(value)
+
+            except ValueError:
+                print("Please enter a valid number.")
+                continue
+
+        try:
+            log_habit(habit_id, today, value)
+            print("Habit logged successfully!")
+
+        except ValueError as e:
+            print(f"Error: {e}")
 
     elif choice == "2":
         ...
@@ -78,6 +148,7 @@ Choose a unit:
             if unit in units:
                 unit = units[unit]
                 data_type = "numeric"
+
             else:
                 print("Invalid unit.")
                 continue
@@ -104,10 +175,13 @@ Choose a unit:
             "unit: ",
             "created_at: "
         ]
+
         print("--------------------------")
+
         for habit in habits:
             for item, info in zip(formatter, habit):
                 print(item, info)
+
         print("--------------------------")
 
     elif choice == "6":

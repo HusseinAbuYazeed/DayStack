@@ -1,7 +1,7 @@
 import os
 import psycopg2
 from dotenv import load_dotenv
-from connection import get_connection
+from database.connection import get_connection
 
 load_dotenv()
 DB_PASSWORD = os.getenv("POSTGRESQL_PASS")
@@ -9,12 +9,8 @@ DB_PASSWORD = os.getenv("POSTGRESQL_PASS")
 
 # make a connection object
 
-conn = psycopg2.connect(host="localhost", dbname="postgres", user="postgres"
-                      , password = DB_PASSWORD, port = 5432)
-
+conn = get_connection()
 cur = conn.cursor()
-
-
 
 cur.execute(
     """
@@ -35,9 +31,7 @@ cur.execute(
 """
 )
 
-
 conn.commit()
-
 cur.close()
 conn.close()
 
@@ -57,4 +51,23 @@ def save_habit_log(habit_id, date, value):
 
     cur.close()
     conn.close()
-   
+
+def get_habit_by_id(habit_id):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT * FROM habits
+        WHERE id = %s
+        """,
+        (habit_id,)
+    )
+
+    habit = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return habit
+
