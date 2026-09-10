@@ -104,10 +104,11 @@ Choose a unit:
             "unit: ",
             "created_at: "
         ]
-
+        print("--------------------------")
         for habit in habits:
             for item, info in zip(formatter, habit):
                 print(item, info)
+        print("--------------------------")
 
     elif choice == "6":
         print("Goodbye!")
