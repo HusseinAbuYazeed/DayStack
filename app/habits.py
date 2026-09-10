@@ -24,7 +24,6 @@ def add_habit(name, data_type, unit=None):
 def show_habits():
     return get_habits()
 
-
 def log_habit():
     pass
 
