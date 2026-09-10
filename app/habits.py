@@ -25,8 +25,11 @@ def show_habits():
     return get_habits()
 
 def log_habit():
-    pass
-
+    # نتحقق من الـhabit
+    # نتحقق من القيمة
+    # نحدد التاريخ
+    # وبعدين نستدعي function من DB layer
+    ...
 
 def delete_habit():
     pass

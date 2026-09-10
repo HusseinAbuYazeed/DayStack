@@ -1,6 +1,8 @@
 import os
 import psycopg2
 from dotenv import load_dotenv
+from connection import get_connection
+
 load_dotenv()
 DB_PASSWORD = os.getenv("POSTGRESQL_PASS")
 
@@ -38,3 +40,21 @@ conn.commit()
 
 cur.close()
 conn.close()
+
+def save_habit_log(habit_id, date, value):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        INSERT INTO habit_logs (habit_id, date, value)
+        VALUES (%s, %s, %s)
+        """,
+        (habit_id, date, value))
+
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
+   
